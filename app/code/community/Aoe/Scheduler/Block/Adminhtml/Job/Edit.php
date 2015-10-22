@@ -16,6 +16,12 @@ class Aoe_Scheduler_Block_Adminhtml_Job_Edit extends Mage_Adminhtml_Block_Widget
         } elseif ($this->getJob()->isXmlOnly()) {
             $this->removeButton('delete');
         }
+        /* Add Run Now Button */
+        $this->_addButton('jobrunnow', array(
+            'label'     => Mage::helper('adminhtml')->__('Run Now'),
+            'onclick'   => 'setLocation(\'' .$this->getjobRunNowUrl(). '\')',
+            'class'     => 'go',
+        ), -100);
         $this->removeButton('reset');
     }
 
@@ -64,5 +70,14 @@ class Aoe_Scheduler_Block_Adminhtml_Job_Edit extends Mage_Adminhtml_Block_Widget
     public function getSaveUrl()
     {
         return $this->getUrl('*/*/save', array('_current'=>true, 'back'=>null));
+    }
+    /**
+     * Return Run Now url for edit form
+     *
+     * @return string
+     */
+    public function getjobRunNowUrl()
+    {
+        return $this->getUrl('*/*/jobrunnow', array('_current'=>true, 'back'=>null));
     }
 }
